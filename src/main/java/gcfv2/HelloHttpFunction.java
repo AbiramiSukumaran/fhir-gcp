@@ -45,7 +45,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 
 public class HelloHttpFunction implements HttpFunction {
-  private static final String FHIR_NAME = "projects/abis-345004/locations/us-central1/datasets/dataset-ohs-gcp/fhirStores/fhirstore-ohs-gcp";
+  private static final String FHIR_NAME = "projects/<<your-project-id>>/locations/us-central1/datasets/dataset-ohs-gcp/fhirStores/fhirstore-ohs-gcp";
   private static final JsonFactory JSON_FACTORY = new JacksonFactory();
   private static final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
@@ -72,14 +72,10 @@ public class HelloHttpFunction implements HttpFunction {
 
   public static void fhirStoreExecuteBundle(String data)
       throws IOException, URISyntaxException {
-    // String fhirStoreName =
-    //    String.format(
-    //        FHIR_NAME, "your-project-id", "your-region-id", "your-dataset-id", "your-fhir-id");
-	String fhirStoreName = FHIR_NAME;
-    //data = "{\"resourceType\": \"Bundle\",\"type\": \"batch\",\"entry\": []}"
-	String dataFhir = "{\"resourceType\":\"Bundle\",\"type\":\"transaction\",\"entry\":[{\"resource\":{\"resourceType\":\"Patient\",\"active\":true,\"name\":[{\"family\":\"Test6March18\",\"given\":[\"Abirami\"]}],\"telecom\":[{\"system\":\"phone\",\"value\":\"9008601605\"}],\"gender\":\"female\",\"birthDate\":\"2000-01-01\",\"address\":[{\"city\":\"Bangalore\",\"country\":\"India\"}]}}]}";
-  String dataR4 = data.replace("}]}}]}","}]},\"request\": {\"method\": \"POST\",\"url\": \"Patient\"}}]}");
-  data = dataR4;
+   String fhirStoreName = FHIR_NAME;
+   String dataFhir = "{\"resourceType\":\"Bundle\",\"type\":\"transaction\",\"entry\":[{\"resource\":{\"resourceType\":\"Patient\",\"active\":true,\"name\":[{\"family\":\"Test6March18\",\"given\":[\"Abirami\"]}],\"telecom\":[{\"system\":\"phone\",\"value\":\"9008601605\"}],\"gender\":\"female\",\"birthDate\":\"2000-01-01\",\"address\":[{\"city\":\"Bangalore\",\"country\":\"India\"}]}}]}";
+   String dataR4 = data.replace("}]}}]}","}]},\"request\": {\"method\": \"POST\",\"url\": \"Patient\"}}]}");
+   data = dataR4;
     // Initialize the client, which will be used to interact with the service.
     CloudHealthcare client = createClient();
     HttpClient httpClient = HttpClients.createDefault();
